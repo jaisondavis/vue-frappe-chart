@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     applyToDataObject () {
-      return ['labels', 'start', 'end', 'yRegions', 'yMarkers']
+      return ['labels', 'start', 'end', 'yregions', 'ymarkers']
     },
     dataObject () {
       const keyname = (this.type === 'heatmap') ? 'dataPoints' : 'datasets'
@@ -50,6 +50,7 @@ export default {
   },
   data () {
     return {
+      camelCasedProps: ['yRegions', 'yMarkers', 'barOptions', 'truncateLegends'],
       id: `frappe-chart-${CHART_ID++}`,
       dataAttrs: {},
       chartAttrs: {},
@@ -93,12 +94,16 @@ export default {
         // HACK: I'm looking to create an automatic boolean type
         //  like you might define in the prop section `isBool: Boolean`
         const value = (this.$attrs[attr] === '') ? true : this.$attrs[attr]
+        const camelCaseAttr = this.camelCasedProps.filter(
+          m => m.toLocaleLowerCase() === attr
+        )[0] || attr
         
         if (this.applyToDataObject.includes(attr))
-          data[attr] = value
+          data[camelCaseAttr] = value
         else
-          chart[attr] = value
+          chart[camelCaseAttr] = value
       }
+
       this.dataAttrs = data
       this.chartAttrs = chart
     },
