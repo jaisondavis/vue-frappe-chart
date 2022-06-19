@@ -50,7 +50,7 @@ export default {
   },
   data () {
     return {
-      camelCasedProps: ['yRegions', 'yMarkers', 'barOptions', 'truncateLegends'],
+      camelCasedProps: ['yRegions', 'yMarkers', 'barOptions', 'truncateLegends', 'lineOptions', 'axisOptions', 'maxSlices'],
       id: `frappe-chart-${CHART_ID++}`,
       dataAttrs: {},
       chartAttrs: {},
